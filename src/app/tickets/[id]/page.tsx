@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import React from "react";
 interface RouteProps {
   params: { id: number };
@@ -9,12 +10,25 @@ interface TicketProps {
   priority: string;
   user_email: string;
 }
+export const dynamicParams = true
+
+export const generateStaticParams = async ()=>{
+  const res = await fetch('http://localhost:4000/tickets')
+  const tickets = await res.json()
+  return tickets.map((ticket :any)=> ({
+    id : ticket.id
+  }))
+
+}
 const getTickets = async (id: any) => {
   const res = await fetch(`http://localhost:4000/tickets/${id}`, {
     next: {
       revalidate: 0,
     },
   });
+  if(!res.ok){
+    notFound()
+  }
   return res.json();
 };
 

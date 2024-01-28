@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Kumbh_Sans } from "next/font/google";
+import { Josefin_Sans, Jost, Kumbh_Sans, Open_Sans, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 import Navbar from "./components/Navbar";
 
 const kumb = Kumbh_Sans({ subsets: ["latin"] });

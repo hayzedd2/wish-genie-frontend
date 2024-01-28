@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import React from 'react'
 interface TicketProps {
   id: number;
@@ -9,16 +10,19 @@ interface TicketProps {
 }
 
 const getTickets = async () => {
+  await new Promise(resolve => setTimeout(resolve , 3000))
   const res = await fetch('http://localhost:4000/tickets' , {
-    next :{
+    next : {
       revalidate : 0
     }
   });
-  return res.json();
+ if(!res.ok){
+  notFound()
+ }
+ return res.json() 
 };
 
 const TicketList = async () => {
-
     const tickets: TicketProps[] = await getTickets();
     return (
       <>
