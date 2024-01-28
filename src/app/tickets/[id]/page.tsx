@@ -10,24 +10,24 @@ interface TicketProps {
   priority: string;
   user_email: string;
 }
-export const dynamicParams = true
+export const dynamicParams = true;
 
-export const generateStaticParams = async ()=>{
-  const res = await fetch('http://localhost:4000/tickets')
-  const tickets = await res.json()
-  return tickets.map((ticket :any)=> ({
-    id : ticket.id
-  }))
-
-}
+export const generateStaticParams = async () => {
+  const res = await fetch("http://localhost:4000/tickets");
+  const tickets = await res.json();
+  return tickets.map((ticket: any) => ({
+    id: ticket.id,
+  }));
+};
 const getTickets = async (id: any) => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const res = await fetch(`http://localhost:4000/tickets/${id}`, {
     next: {
       revalidate: 0,
     },
   });
-  if(!res.ok){
-    notFound()
+  if (!res.ok) {
+    notFound();
   }
   return res.json();
 };

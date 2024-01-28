@@ -10,6 +10,9 @@ const config: Config = {
     extend: {
       colors : {
         primary : "#673de6",
+      },
+      fontFamily : {
+        kumb :  ['Kumbh sans' , "sans-serif"]
       }
     },
   },

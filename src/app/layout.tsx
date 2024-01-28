@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Josefin_Sans, Jost, Kumbh_Sans, Open_Sans, Roboto_Mono } from "next/font/google";
+import { Josefin_Sans, Jost, Kumbh_Sans, Lato, Montserrat, Open_Sans, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
-const kumb = Kumbh_Sans({ subsets: ["latin"] });
+const kumb = Kumbh_Sans({ subsets: ["latin"], weight : ["400"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
