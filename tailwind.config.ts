@@ -9,10 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors : {
-        primary : "#673de6",
+        primary : "#121217",
+        primarybtn : "1919e5",
       },
       fontFamily : {
-        kumb :  ['Kumbh sans' , "sans-serif"]
+        work :  ['Work sans' , "sans-serif"]
       }
     },
   },
