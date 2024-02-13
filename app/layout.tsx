@@ -17,7 +17,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <head />
-        <body className={workSans.className}>
+        <body className={`${workSans.className} min-h-screen bg-primary`}>
           <Navbar />
           {children}
         </body>
