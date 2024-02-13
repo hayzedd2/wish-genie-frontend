@@ -5,7 +5,7 @@ import { UserButton } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 const Navbar = () => {
   return (
-    <nav className="bg-primary px-12 py-5 flex items-center justify-center">
+    <nav className=" bg-primarybg px-12 py-5 flex items-center justify-center">
       <div className="flex gap-4 items-center basis-[50%] ">
         <Image src={logo} alt="logo" className="w-5 h-5" />
         <h1 className="text-[1.3rem] text-white font-work font-[600]">
