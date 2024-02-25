@@ -49,6 +49,7 @@ const formSchema = z.object({
   wish_description: z.string().min(1),
   wish_category: z.string().min(1),
 });
+const [loadibg , setLoading] = useState()
 
 const AddWish = () => {
   const form = useForm<z.infer<typeof formSchema>>({
