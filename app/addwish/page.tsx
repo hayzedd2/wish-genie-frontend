@@ -7,12 +7,15 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import * as z from "zod";
+import axios from "axios";
 import {
   Select,
   SelectValue,
@@ -49,9 +52,9 @@ const formSchema = z.object({
   wish_description: z.string().min(1),
   wish_category: z.string().min(1),
 });
-const [loadibg , setLoading] = useState()
 
 const AddWish = () => {
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,6 +66,27 @@ const AddWish = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // onsubmit function
+    try {
+      setLoading(true);
+      const res = await axios.post("/api/wishes", values);
+      toast("Wish created!",  {
+        description: "Your wish has been created",
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo"),
+        },
+      })
+    } catch (error) {
+      toast("Something went wrong", {
+        description: "Please try again",
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo"),
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <section className="pb-8 px-5">
@@ -80,7 +104,11 @@ const AddWish = () => {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="I wish for..." {...field} />
+                    <Input
+                      disabled={loading}
+                      placeholder="I wish for..."
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -93,6 +121,7 @@ const AddWish = () => {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
+                      disabled={loading}
                       placeholder="Say Something about this wish"
                       {...field}
                     />
@@ -117,7 +146,11 @@ const AddWish = () => {
                     </FormControl>
                     <SelectContent>
                       {wishCategories.map((wish, index) => (
-                        <SelectItem value={wish.id} key={index}>
+                        <SelectItem
+                          disabled={loading}
+                          value={wish.id}
+                          key={index}
+                        >
                           {wish.catName}
                         </SelectItem>
                       ))}
@@ -141,18 +174,38 @@ const AddWish = () => {
                     Upload a video to tell your story. (Max 2 mins)
                   </p>
                 </div>
-                <input type="file" name="file" id="file" className="hidden" />
+                <input
+                  type="file"
+                  disabled={loading}
+                  name="file"
+                  id="file"
+                  className="hidden"
+                />
               </label>
             </div>
 
-           <div className="flex items-end justify-end">
-           <Button variant={"primary"}>
-              Submit
-            </Button>
-           </div>
+            <div className="flex items-end justify-end">
+              <Button variant={"primary"} disabled={loading}>
+                {loading ? (
+                  <div className="flex gap-1 items-center justify-center">
+                    <RotatingLines
+                    visible={true}
+                    width="24"
+                    strokeWidth="3"
+                    strokeColor="white"
+                    animationDuration="0.75"
+                    ariaLabel="rotating-lines-loading"
+                  /> <p>Submit</p>
+                  </div>
+                ) : (
+                  <p className="text-[0.9rem]">Submit</p>
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
+     
     </section>
   );
 };
