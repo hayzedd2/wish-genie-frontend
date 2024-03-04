@@ -5,6 +5,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -48,9 +49,15 @@ const wishCategories = [
   },
 ];
 const formSchema = z.object({
-  wish_name: z.string().min(1),
-  wish_description: z.string().min(1),
-  wish_category: z.string().min(1),
+  wish_name: z.string().min(1, {
+    message: "Name is required",
+  }),
+  wish_description: z.string().min(1, {
+    message: "Description is required",
+  }),
+  wish_category: z.string().min(1, {
+    message: "Category is required",
+  }),
 });
 
 const AddWish = () => {
@@ -64,18 +71,20 @@ const AddWish = () => {
     },
   });
 
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // onsubmit function
     try {
       setLoading(true);
       const res = await axios.post("/api/wishes", values);
-      toast("Wish created!",  {
+      toast("Wish created!", {
         description: "Your wish has been created",
         action: {
           label: "Undo",
           onClick: () => console.log("Undo"),
         },
-      })
+      });
+      form.reset()
     } catch (error) {
       toast("Something went wrong", {
         description: "Please try again",
@@ -110,6 +119,7 @@ const AddWish = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -126,6 +136,7 @@ const AddWish = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -144,6 +155,7 @@ const AddWish = () => {
                         <SelectValue placeholder="Choose a category that best suits your wish" />
                       </SelectTrigger>
                     </FormControl>
+                    <FormMessage />
                     <SelectContent>
                       {wishCategories.map((wish, index) => (
                         <SelectItem
@@ -156,6 +168,7 @@ const AddWish = () => {
                       ))}
                     </SelectContent>
                   </Select>
+                 
                 </FormItem>
               )}
             />
@@ -170,7 +183,7 @@ const AddWish = () => {
                   <h2 className="text-white text-[0.95rem] font-[500]">
                     Optional: Add a Video
                   </h2>
-                  <p className="text-[0.9rem] mt-[0.15rem]">
+                  <p className="text-[0.9rem] mt-[0.15rem] text-[#9E9EB8]">
                     Upload a video to tell your story. (Max 2 mins)
                   </p>
                 </div>
@@ -189,13 +202,14 @@ const AddWish = () => {
                 {loading ? (
                   <div className="flex gap-1 items-center justify-center">
                     <RotatingLines
-                    visible={true}
-                    width="24"
-                    strokeWidth="3"
-                    strokeColor="white"
-                    animationDuration="0.75"
-                    ariaLabel="rotating-lines-loading"
-                  /> <p>Submit</p>
+                      visible={true}
+                      width="24"
+                      strokeWidth="3"
+                      strokeColor="white"
+                      animationDuration="0.75"
+                      ariaLabel="rotating-lines-loading"
+                    />{" "}
+                    <p>Submitting</p>
                   </div>
                 ) : (
                   <p className="text-[0.9rem]">Submit</p>
@@ -205,7 +219,6 @@ const AddWish = () => {
           </form>
         </Form>
       </div>
-     
     </section>
   );
 };
