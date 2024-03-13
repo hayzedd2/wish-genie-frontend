@@ -12,8 +12,11 @@ const config: Config = {
         primarybg : "#101118",
         primarybtn : "1919e5",
       },
-      fontFamily : {
-        work :  ['Work sans' , "sans-serif"]
+      // fontFamily : {
+      //   work:["worksans","sans-serif"]
+      // }
+      fontFamily:{
+        work : ['work sans', 'sans serif']
       }
     },
   },

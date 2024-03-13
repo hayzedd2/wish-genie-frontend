@@ -1,13 +1,13 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import Navbar from "./components/custom-comp/Navbar";
-import { Work_Sans } from "next/font/google";
+import { Jost, Work_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
-const workSans = Work_Sans({
+const workSans = Jost({
   subsets: ["latin"],
   weight: ["400", "500", "700"], // Add desired weights
 });
-
+// const workFont = Work
 export default function RootLayout({
   children,
 }: {

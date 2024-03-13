@@ -25,6 +25,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
 
 const wishCategories = [
   {
@@ -80,8 +81,8 @@ const AddWish = () => {
       toast("Wish created!", {
         description: "Your wish has been created",
         action: {
-          label: "Undo",
-          onClick: () => console.log("Undo"),
+          label: "Ok",
+          onClick: () => console.log("Ok"),
         },
       });
       form.reset()
@@ -89,8 +90,8 @@ const AddWish = () => {
       toast("Something went wrong", {
         description: "Please try again",
         action: {
-          label: "Undo",
-          onClick: () => console.log("Undo"),
+          label: "Ok",
+          onClick: () => console.log("Ok"),
         },
       });
     } finally {
@@ -180,10 +181,10 @@ const AddWish = () => {
               >
                 <MdOutlineVideoLibrary className="text-white text-[1.35rem]" />
                 <div className="text mt-3">
-                  <h2 className="text-white text-[0.95rem] font-[500]">
+                  <h2 className="text-white text-[1rem] font-[500]">
                     Optional: Add a Video
                   </h2>
-                  <p className="text-[0.9rem] mt-[0.15rem] text-[#9E9EB8]">
+                  <p className="text-[0.9rem] mt-[0.15rem] text-[#9E9EB8] font-[500]">
                     Upload a video to tell your story. (Max 2 mins)
                   </p>
                 </div>
@@ -198,9 +199,9 @@ const AddWish = () => {
             </div>
 
             <div className="flex items-end justify-end">
-              <Button variant={"primary"} disabled={loading}>
+              <Button variant={"primary"} size={"lg"} disabled={loading}>
                 {loading ? (
-                  <div className="flex gap-1 items-center justify-center">
+                  <div className="flex gap-1 items-center justify-center text-[1rem] font-[500]">
                     <RotatingLines
                       visible={true}
                       width="24"
@@ -212,7 +213,7 @@ const AddWish = () => {
                     <p>Submitting</p>
                   </div>
                 ) : (
-                  <p className="text-[0.9rem]">Submit</p>
+                  <p className="text-[1rem] font-[500]">Submit</p>
                 )}
               </Button>
             </div>
