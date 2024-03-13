@@ -78,14 +78,8 @@ const AddWish = () => {
     try {
       setLoading(true);
       const res = await axios.post("/api/wishes", values);
-      toast("Wish created!", {
-        description: "Your wish has been created",
-        action: {
-          label: "Ok",
-          onClick: () => console.log("Ok"),
-        },
-      });
       form.reset()
+      window.location.assign(`/${res.data.id}`)
     } catch (error) {
       toast("Something went wrong", {
         description: "Please try again",

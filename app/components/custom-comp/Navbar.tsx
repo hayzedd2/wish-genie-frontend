@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="flex gap-4 items-center justify-end basis-[50%] ">
         <ul className="flex gap-10 items-center font-[500] text-[1rem] text-white">
           <li>
-            <a href="">Explore</a>
+            <a href="/wishes">Explore</a>
           </li>
           <li>
             <a href="">Your Wishes</a>
@@ -27,7 +27,9 @@ const Navbar = () => {
         <div className="flex gap-4 items-center px-4">
           <Button variant={"primary"}>New Wish</Button>
           <Button variant={"secondarybtn"}>Give</Button>
-          <UserButton afterSignOutUrl="/" />
+          {/* <div className="w-20 h-20 bg-red-600 object-cover"> */}
+            <UserButton afterSignOutUrl="/" />
+          {/* </div> */}
         </div>
       </div>
     </nav>

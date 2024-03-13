@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
+import prismadb from "@/lib/prismadb";
+import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
+import FetchWishes from "./FetchWishes";
 
-const Wishes = () => {
+const Wishes = async () => {
   const wishCat = [
     {
       wishname: "Tech",
@@ -26,6 +30,7 @@ const Wishes = () => {
       wishendpoint: "/random",
     },
   ];
+  
   return (
     <section>
       <div className="conatiner max-w-[75rem] mx-auto">
@@ -49,99 +54,7 @@ const Wishes = () => {
           </div>
         </div>
         <div className="wish-container my-10">
-          <div className="overall-wish-box flex flex-col gap-[2.15rem]">
-          <div className="wish-box flex items-center justify-between">
-            <div className="img-text-flex flex items-center gap-4 text-white">
-              {/* <Image src={}/> */}
-              <div className="w-14 h-14 rounded-full bg-red-600"></div>
-              <div>
-                <h3 className="font-[600] text-[1.15rem]">NeigbourNextdoor</h3>
-                <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">Currently in need of 50,000 naira to complete my money for inverter</p>
-              </div>
-            </div>
-            <div>
-              <Button size={"lg"} className="text-[0.98rem] font-[600] bg-[#292939]">
-                Offer to help
-              </Button>
-            </div>
-          </div>
-          <div className="wish-box flex items-center justify-between">
-            <div className="img-text-flex flex items-center gap-4 text-white">
-              {/* <Image src={}/> */}
-              <div className="w-14 h-14 rounded-full bg-blue-600"></div>
-              <div>
-                <h3 className="font-[600] text-[1.15rem]">Xylogeist</h3>
-                <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">Need that macbook pro to continue taking my adobe xd lessons</p>
-              </div>
-            </div>
-            <div>
-              <Button size={"lg"} className="text-[0.98rem] font-[600] bg-[#292939]">
-                Offer to help
-              </Button>
-            </div>
-          </div>
-          <div className="wish-box flex items-center justify-between">
-            <div className="img-text-flex flex items-center gap-4 text-white">
-              {/* <Image src={}/> */}
-              <div className="w-14 h-14 rounded-full bg-green-600"></div>
-              <div>
-                <h3 className="font-[600] text-[1.15rem]">PineappleLover</h3>
-                <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">Asking for a capital to venture into my pineapple and cocoa business</p>
-              </div>
-            </div>
-            <div>
-              <Button size={"lg"} className="text-[0.98rem] font-[600] bg-[#292939]">
-                Offer to help
-              </Button>
-            </div>
-          </div>
-          <div className="wish-box flex items-center justify-between">
-            <div className="img-text-flex flex items-center gap-4 text-white">
-              {/* <Image src={}/> */}
-              <div className="w-14 h-14 rounded-full bg-gray-600"></div>
-              <div>
-                <h3 className="font-[600] text-[1.15rem]">Patriotic Citizen</h3>
-                <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">Looking for funding to kickstart my japa journey</p>
-              </div>
-            </div>
-            <div>
-              <Button size={"lg"} className="text-[0.98rem] font-[600] bg-[#292939]">
-                Offer to help
-              </Button>
-            </div>
-          </div>
-          <div className="wish-box flex items-center justify-between">
-            <div className="img-text-flex flex items-center gap-4 text-white">
-              {/* <Image src={}/> */}
-              <div className="w-14 h-14 rounded-full bg-purple-600"></div>
-              <div>
-                <h3 className="font-[600] text-[1.15rem]">ThatAsianDude</h3>
-                <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">I wish to visit my dream country, Nigeria soon</p>
-              </div>
-            </div>
-            <div>
-              <Button size={"lg"} className="text-[0.98rem] font-[600] bg-[#292939]">
-                Offer to help
-              </Button>
-            </div>
-          </div>
-          <div className="wish-box flex items-center justify-between">
-            <div className="img-text-flex flex items-center gap-4 text-white">
-              {/* <Image src={}/> */}
-              <div className="w-14 h-14 rounded-full bg-green-600"></div>
-              <div>
-                <h3 className="font-[600] text-[1.15rem]">PineappleLover</h3>
-                <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">Asking for a capital to venture into my pineapple and cocoa business</p>
-              </div>
-            </div>
-            <div>
-              <Button size={"lg"} className="text-[0.98rem] font-[600] bg-[#292939]">
-                Offer to help
-              </Button>
-            </div>
-          </div>
-          
-          </div>
+         <FetchWishes/>
         </div>
       </div>
     </section>
