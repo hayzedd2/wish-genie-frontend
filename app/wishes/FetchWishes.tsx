@@ -32,10 +32,10 @@ const FetchWishes = async () => {
             <div className="w-14 h-14 rounded-full bg-red-600"></div>
             <div>
               <h3 className="font-[600] text-[1.15rem]">
-                {wish.wish_description}
+                {wish.wish_name}
               </h3>
               <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">
-                {wish.wish_category}
+                {wish.wish_description}
               </p>
             </div>
           </div>

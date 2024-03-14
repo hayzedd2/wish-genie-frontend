@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { MdOutlineVideoLibrary } from "react-icons/md";
+import { useUser } from "@clerk/nextjs";
 import * as z from "zod";
 import axios from "axios";
 import {
@@ -59,27 +60,35 @@ const formSchema = z.object({
   wish_category: z.string().min(1, {
     message: "Category is required",
   }),
+  // user_name: z.string().min(1,{
+  //   message : "Username"
+  // }),
+  // user_image: z.string(),
 });
 
 const AddWish = () => {
+  const { isSignedIn, user } = useUser();
   const [loading, setLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       wish_name: "",
       wish_description: "",
       wish_category: "",
+      // user_name: user?.username || "User",
+      // user_image: user?.imageUrl || "",
     },
   });
-
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // onsubmit function
     try {
       setLoading(true);
       const res = await axios.post("/api/wishes", values);
-      form.reset()
-      window.location.assign(`/${res.data.id}`)
+      form.reset();
+      // window.location.assign(`/wishes`);
+      console.log(res.data);
     } catch (error) {
       toast("Something went wrong", {
         description: "Please try again",
@@ -163,7 +172,6 @@ const AddWish = () => {
                       ))}
                     </SelectContent>
                   </Select>
-                 
                 </FormItem>
               )}
             />

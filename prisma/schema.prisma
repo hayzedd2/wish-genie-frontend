@@ -18,4 +18,7 @@ model Wishes {
   wish_category    String?
   wish_description String?
   userId           String?
+  user_name        String?
+  user_fullname    String?
+  user_image       String?
 }
