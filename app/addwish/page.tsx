@@ -26,7 +26,6 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
 
 const wishCategories = [
   {
@@ -60,29 +59,20 @@ const formSchema = z.object({
   wish_category: z.string().min(1, {
     message: "Category is required",
   }),
-  // user_name: z.string().min(1,{
-  //   message : "Username"
-  // }),
-  // user_image: z.string(),
 });
 
 const AddWish = () => {
-  const { isSignedIn, user } = useUser();
   const [loading, setLoading] = useState(false);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       wish_name: "",
       wish_description: "",
       wish_category: "",
-      // user_name: user?.username || "User",
-      // user_image: user?.imageUrl || "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // onsubmit function
     try {
       setLoading(true);
       const res = await axios.post("/api/wishes", values);
@@ -165,7 +155,7 @@ const AddWish = () => {
                         <SelectItem
                           disabled={loading}
                           value={wish.id}
-                          key={index}
+                          key={wish.id}
                         >
                           {wish.catName}
                         </SelectItem>

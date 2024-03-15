@@ -24,9 +24,9 @@ export async function POST(req: Request) {
     if (!isSignedIn) {
       return new NextResponse("unauthorized", { status: 401 });
     }
-    const user_name = user!.username 
-    const user_image = user!.imageUrl
-    const user_fullname = user!.fullName
+    const user_name = user?.username 
+    const user_image = user?.imageUrl
+    const user_fullname = user?.fullName
     const wish = await prismadb.wishes.create({
       data: {
         wish_name,
@@ -36,9 +36,9 @@ export async function POST(req: Request) {
         user_name,
         user_fullname,
         user_image,  
-        
       },
     });
+    // console.log(typeof(user.username))
 
     return NextResponse.json(wish);
   } catch (error) {
