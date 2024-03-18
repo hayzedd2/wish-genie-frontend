@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
-    const { isSignedIn, user } = useUser();
+    // const { isSignedIn, user } = useUser();
     const body = await req.json();
     const { wish_name, wish_description, wish_category } = body;
     if (!userId) {
@@ -21,21 +21,21 @@ export async function POST(req: Request) {
     if (!wish_category) {
       return new NextResponse("Category is required", { status: 400 });
     }
-    if (!isSignedIn) {
-      return new NextResponse("unauthorized", { status: 401 });
-    }
-    const user_name = user?.username 
-    const user_image = user?.imageUrl
-    const user_fullname = user?.fullName
+    // if (!isSignedIn) {
+    //   return new NextResponse("unauthorized", { status: 401 });
+    // }
+    // const user_name = user?.username 
+    // const user_image = user?.imageUrl
+    // const user_fullname = user?.fullName
     const wish = await prismadb.wishes.create({
       data: {
         wish_name,
         wish_category,
         wish_description,
         userId,
-        user_name,
-        user_fullname,
-        user_image,  
+        // user_name,
+        // user_fullname,
+        // user_image,  
       },
     });
     // console.log(typeof(user.username))
