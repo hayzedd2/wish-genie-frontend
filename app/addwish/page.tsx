@@ -77,7 +77,7 @@ const AddWish = () => {
       setLoading(true);
       const res = await axios.post("/api/wishes", values);
       form.reset();
-      // window.location.assign(`/wishes`);
+      window.location.assign(`/wishes`);
       console.log(res.data);
     } catch (error) {
       toast("Something went wrong", {

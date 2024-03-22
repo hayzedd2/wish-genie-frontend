@@ -21,14 +21,11 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 const Navbar = () => {
   return (
     <nav className=" bg-primarybg px-12 py-5 flex items-center justify-center">
@@ -41,21 +38,25 @@ const Navbar = () => {
       <div className="flex gap-4 items-center justify-end basis-[50%] ">
         <ul className="flex gap-10 items-center font-[500] text-[1rem] text-white">
           <li>
-            <a href="/wishes">Explore</a>
+            <Link href={"/wishes"}>Explore</Link>
           </li>
           <li>
-            <a href="">Your Wishes</a>
+            <Link href={"/yourwishes"}>Your wishes</Link>
           </li>
           <li>
             <a href="">Your Grants</a>
           </li>
         </ul>
         <div className="flex gap-4 items-center px-4">
-          <Button variant={"primary"}>New Wish</Button>
+          <Link href={"/addwish"}>
+            <Button variant={"primary"}>New Wish</Button>
+          </Link>
+
           <Button variant={"secondarybtn"}>Give</Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">Open</Button>
+              {/* <Button variant="outline">Open</Button> */}
+              <UserButton />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-[10.5rem] py-2">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -64,18 +65,15 @@ const Navbar = () => {
                 <DropdownMenuItem className="cursor-pointer">
                   <User className="mr-2.5 my-1 h-4 w-4" />
                   <span>Profile</span>
-                  
                 </DropdownMenuItem>
-                
+
                 <DropdownMenuItem className="cursor-pointer">
                   <Settings className="mr-2.5 my-1 h-4 w-4" />
                   <span>Settings</span>
-                 
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
                   <LogOut className="mr-2.5 my-1 h-4 w-4" />
                   <span>Logout</span>
-                  
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>

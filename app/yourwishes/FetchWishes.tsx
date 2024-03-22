@@ -17,9 +17,7 @@ const FetchWishes = async () => {
   console.log(useUser);
   const wishes = await prismadb.wishes.findMany({
     where: {
-      NOT :{
-        userId: userId
-      }
+      userId,
     },
   });
 
@@ -33,9 +31,7 @@ const FetchWishes = async () => {
           <div className="img-text-flex flex items-center gap-4 text-white">
             <div className="w-14 h-14 rounded-full bg-red-600"></div>
             <div>
-              <h3 className="font-[600] text-[1.15rem]">
-                {wish.wish_name}
-              </h3>
+              <h3 className="font-[600] text-[1.15rem]">{wish.wish_name}</h3>
               <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">
                 {wish.wish_description}
               </p>

@@ -10,8 +10,7 @@ const page: React.FC<DatabaseProps>= async ({ params}) => {
     }
   })
   return (
-    <div className='text-white text-[2rem]'>Active Wish === {wish?.wish_name}</div>
-  )
-}
+    <div className='text-white text-[2rem]'>why</div>
+  )}
 
 export default page
