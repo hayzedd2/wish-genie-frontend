@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { MdOutlineVideoLibrary } from "react-icons/md";
-import { useUser } from "@clerk/nextjs";
+import { auth, useUser } from "@clerk/nextjs";
 import * as z from "zod";
 import axios from "axios";
 import {

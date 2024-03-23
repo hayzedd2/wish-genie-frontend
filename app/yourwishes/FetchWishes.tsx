@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 const FetchWishes = async () => {
   const { userId } = auth();
   //   const {isSignedIn , user} = useUser()
@@ -24,7 +25,7 @@ const FetchWishes = async () => {
   return (
     <div className="overall-wish-box flex flex-col gap-[2.15rem]">
       {wishes.map((wish) => (
-        <div
+        < Link href={`/settings/${wish.id}`}
           className="wish-box flex items-center justify-between"
           key={wish.id}
         >
@@ -45,7 +46,7 @@ const FetchWishes = async () => {
               Offer to help
             </Button>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
