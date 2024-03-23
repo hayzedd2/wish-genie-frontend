@@ -1,4 +1,10 @@
 "use client";
+import { Wishes } from "@prisma/client";
+import * as z from "zod";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -10,12 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { useForm } from "react-hook-form";
 import { MdOutlineVideoLibrary } from "react-icons/md";
-import * as z from "zod";
 import axios from "axios";
 import {
   Select,
@@ -25,6 +27,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { useParams, useRouter } from "next/navigation";
 
 const wishCategories = [
   {
@@ -48,6 +51,9 @@ const wishCategories = [
     id: "other",
   },
 ];
+interface formProps {
+  initialData: Wishes;
+}
 const formSchema = z.object({
   wish_name: z.string().min(1, {
     message: "Name is required",
@@ -59,45 +65,54 @@ const formSchema = z.object({
     message: "Category is required",
   }),
 });
-
-const AddWish = () => {
-  const [loading, setLoading] = useState(false);
-  const form = useForm<z.infer<typeof formSchema>>({
+type settingsFormValues = z.infer<typeof formSchema>;
+const SettingsForm: React.FC<formProps> = ({ initialData }) => {
+  const form = useForm<settingsFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      wish_name: "",
-      wish_description: "",
-      wish_category: "",
-    },
+    defaultValues: initialData as settingsFormValues,
   });
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const [loading, setLoading] = useState(false);
+  const [open , isOpen] = useState(false)
+  const params = useParams()
+  const router = useRouter()
+  const onSubmit = async (data: settingsFormValues) => {
     try {
-      setLoading(true);
-      const res = await axios.post("/api/wishes", values);
-      form.reset();
-      window.location.assign(`/wishes`);
-      console.log(res.data);
-    } catch (error) {
-      toast("Something went wrong", {
-        description: "Please try again",
-        action: {
-          label: "Ok",
-          onClick: () => console.log("Ok"),
-        },
-      });
-    } finally {
-      setLoading(false);
-    }
+        setLoading(true);
+        const res = await axios.patch(`/api/wishes/${params.wishId}`, data);
+        router.refresh()
+        toast("Wish Updated", {
+            description: "Success",
+            action: {
+              label: "Ok",
+              onClick: () => console.log("Ok"),
+            },
+          });
+        console.log(res.data);
+      } catch (error) {
+        toast("Something went wrong", {
+          description: "Please try again",
+          action: {
+            label: "Ok",
+            onClick: () => console.log("Ok"),
+          },
+        });
+      } finally {
+        setLoading(false);
+      }
   };
   return (
     <section className="pb-8 px-5">
       <div className="container max-w-xl mx-auto">
-        <h1 className="py-8 text-white text-[1.5rem] font-[600]">New Wish</h1>
+        <h1 className="pt-8 text-white text-[1.5rem] font-[600]">
+          Manage your Wish
+        </h1>
+        <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[500]">
+          Delete or edit your wish.
+        </p>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-6"
+            className="flex flex-col"
           >
             <FormField
               control={form.control}
@@ -165,7 +180,7 @@ const AddWish = () => {
               )}
             />
 
-            <div className="text-[#9E9EB8] bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]">
+            <div className="text-[#9E9EB8] my-4 bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]">
               <label
                 htmlFor="file"
                 className="text-white text-[0.9rem] mt-3 cursor-pointer"
@@ -189,7 +204,10 @@ const AddWish = () => {
               </label>
             </div>
 
-            <div className="flex items-end justify-end">
+            <div className="flex items-end justify-end gap-3">
+              <Button size={"lg"} variant={'default'} className="bg-red-500" onClick={()=> isOpen(true)}>
+                Delete
+              </Button>
               <Button variant={"primary"} size={"lg"} disabled={loading}>
                 {loading ? (
                   <div className="flex gap-1 items-center justify-center text-[1rem] font-[500]">
@@ -201,10 +219,10 @@ const AddWish = () => {
                       animationDuration="0.75"
                       ariaLabel="rotating-lines-loading"
                     />{" "}
-                    <p>Submitting</p>
+                    <p>Saving changes</p>
                   </div>
                 ) : (
-                  <p className="text-[1rem] font-[500]">Submit</p>
+                  <p className="text-[1rem] font-[500]">Save Changes</p>
                 )}
               </Button>
             </div>
@@ -215,4 +233,4 @@ const AddWish = () => {
   );
 };
 
-export default AddWish;
+export default SettingsForm;

@@ -56,7 +56,7 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               {/* <Button variant="outline">Open</Button> */}
-              <UserButton />
+              <UserButton afterSignOutUrl="/"/>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-[10.5rem] py-2">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
