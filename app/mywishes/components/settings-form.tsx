@@ -106,13 +106,13 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
         <h1 className="pt-8 text-white text-[1.5rem] font-[600]">
           Manage your Wish
         </h1>
-        <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[500]">
+        <p className="text-[1rem] mt-[0.15rem] mb-[0.25rem] text-[#9E9EB8] font-[500]">
           Delete or edit your wish.
         </p>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col"
+            className="flex flex-col gap-5"
           >
             <FormField
               control={form.control}
@@ -180,7 +180,7 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
               )}
             />
 
-            <div className="text-[#9E9EB8] my-4 bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]">
+            <div className="text-[#9E9EB8] bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]">
               <label
                 htmlFor="file"
                 className="text-white text-[0.9rem] mt-3 cursor-pointer"

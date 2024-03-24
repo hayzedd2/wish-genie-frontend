@@ -4,10 +4,11 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { wishId: string } }
 ) {
   try {
     const { userId } = auth();
+    const user = auth().user;
     const body = await req.json();
     const { wish_name, wish_description, wish_category } = body;
     if (!userId) {
@@ -22,12 +23,15 @@ export async function PATCH(
     if (!wish_category) {
       return new NextResponse("Category is required", { status: 400 });
     }
-    if (!params.id) {
+    if (!params.wishId) {
       return new NextResponse("Invalid Wish ID", { status: 400 });
     }
+    const user_name = user?.username;
+    const user_image = user?.imageUrl;
+    const user_fullname = user?.firstName + " " + user?.lastName;
     const wish = await prismadb.wishes.updateMany({
       where: {
-        wishId: params.id,
+        wishId: params.wishId,
         userId,
       },
       data: {
@@ -35,6 +39,9 @@ export async function PATCH(
         wish_category,
         wish_description,
         userId,
+        user_name,
+        user_fullname,
+        user_image,
       },
     });
     return NextResponse.json(wish);

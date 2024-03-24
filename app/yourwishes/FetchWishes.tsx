@@ -25,7 +25,7 @@ const FetchWishes = async () => {
   return (
     <div className="overall-wish-box flex flex-col gap-[2.15rem]">
       {wishes.map((wish) => (
-        < Link href={`/settings/${wish.wishId}`}
+        < Link href={`/mywishes/${wish.wishId}`}
           className="wish-box flex items-center justify-between"
           key={wish.id}
         >

@@ -53,10 +53,11 @@ const Navbar = () => {
           </Link>
 
           <Button variant={"secondarybtn"}>Give</Button>
-          <DropdownMenu>
+          <UserButton afterSignOutUrl="/"/>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              {/* <Button variant="outline">Open</Button> */}
-              <UserButton afterSignOutUrl="/"/>
+              <Button variant="outline">Open</Button>
+              
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-[10.5rem] py-2">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -77,7 +78,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
         </div>
       </div>
     </nav>
