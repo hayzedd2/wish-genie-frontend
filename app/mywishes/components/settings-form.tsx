@@ -18,6 +18,18 @@ import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { RotatingLines } from "react-loader-spinner";
 import { MdOutlineVideoLibrary } from "react-icons/md";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import axios from "axios";
 import {
   Select,
@@ -28,6 +40,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
+import { FaTrash } from "react-icons/fa6";
 
 const wishCategories = [
   {
@@ -72,43 +85,102 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
     defaultValues: initialData as settingsFormValues,
   });
   const [loading, setLoading] = useState(false);
-  const [open , isOpen] = useState(false)
-  const params = useParams()
-  const router = useRouter()
+  const [open, isOpen] = useState(false);
+  const params = useParams();
+  const router = useRouter();
   const onSubmit = async (data: settingsFormValues) => {
     try {
-        setLoading(true);
-        const res = await axios.patch(`/api/wishes/${params.wishId}`, data);
-        router.refresh()
-        toast("Wish Updated", {
-            description: "Success",
-            action: {
-              label: "Ok",
-              onClick: () => console.log("Ok"),
-            },
-          });
-        console.log(res.data);
-      } catch (error) {
-        toast("Something went wrong", {
-          description: "Please try again",
-          action: {
-            label: "Ok",
-            onClick: () => console.log("Ok"),
-          },
-        });
-      } finally {
-        setLoading(false);
-      }
+      setLoading(true);
+      const res = await axios.patch(`/api/wishes/${params.wishId}`, data);
+      router.refresh();
+      toast("Wish Updated", {
+        description: "Success",
+        action: {
+          label: "Ok",
+          onClick: () => console.log("Ok"),
+        },
+      });
+      console.log(res.data);
+    } catch (error) {
+      toast("Something went wrong", {
+        description: "Please try again",
+        action: {
+          label: "Ok",
+          onClick: () => console.log("Ok"),
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onDelete = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.delete(`/api/wishes/${params.wishId}`);
+      router.refresh();
+      router.push("/yourwishes");
+      console.log(res.data);
+    } catch (error) {
+      toast("Something went wrong", {
+        description: "Please try again",
+        action: {
+          label: "Ok",
+          onClick: () => console.log("Ok"),
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <section className="pb-8 px-5">
       <div className="container max-w-xl mx-auto">
-        <h1 className="pt-8 text-white text-[1.5rem] font-[600]">
-          Manage your Wish
-        </h1>
-        <p className="text-[1rem] mt-[0.15rem] mb-[0.25rem] text-[#9E9EB8] font-[500]">
-          Delete or edit your wish.
-        </p>
+        <div className="heading flex items-end justify-between">
+          <div>
+            <h1 className="pt-8 text-white text-[1.5rem] font-[600]">
+              Manage your Wish
+            </h1>
+            <p className="text-[1rem] mt-[0.15rem] mb-[0.25rem] text-[#9E9EB8] font-[500]">
+              Delete or edit your wish.
+            </p>
+          </div>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant={"delete"} size={"icon"}>
+                <FaTrash className="text-[1.05rem] text-white" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your wish.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={onDelete} disabled={loading}>
+                {loading ? (
+                  <div className="flex gap-1 items-center opacity-50 justify-center text-[1rem] font-[500]">
+                    <RotatingLines
+                      visible={true}
+                      width="24"
+                      strokeWidth="3"
+                      strokeColor="white"
+                      animationDuration="0.75"
+                      ariaLabel="rotating-lines-loading"
+                    />{" "}
+                    <p >Continue</p>
+                  </div>
+                ) : (
+                  <p className="text-[1rem] font-[500]">Continue</p>
+                )}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -205,9 +277,6 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
             </div>
 
             <div className="flex items-end justify-end gap-3">
-              <Button size={"lg"} variant={'default'} className="bg-red-500" onClick={()=> isOpen(true)}>
-                Delete
-              </Button>
               <Button variant={"primary"} size={"lg"} disabled={loading}>
                 {loading ? (
                   <div className="flex gap-1 items-center justify-center text-[1rem] font-[500]">
