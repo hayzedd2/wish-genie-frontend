@@ -43,42 +43,16 @@ const Navbar = () => {
           <li>
             <Link href={"/yourwishes"}>Your wishes</Link>
           </li>
-          <li>
-            <a href="">Your Grants</a>
-          </li>
+         
         </ul>
         <div className="flex gap-4 items-center px-4">
           <Link href={"/addwish"}>
             <Button variant={"primary"}>New Wish</Button>
           </Link>
-
-          <Button variant={"secondarybtn"}>Give</Button>
-          <UserButton afterSignOutUrl="/"/>
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">Open</Button>
-              
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-[10.5rem] py-2">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer">
-                  <User className="mr-2.5 my-1 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem className="cursor-pointer">
-                  <Settings className="mr-2.5 my-1 h-4 w-4" />
-                  <span>Settings</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <LogOut className="mr-2.5 my-1 h-4 w-4" />
-                  <span>Logout</span>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
+          <Link href={'/wishes'}>
+            <Button variant={"secondarybtn"}>Give</Button>
+          </Link>
+          <UserButton afterSignOutUrl="/" />
         </div>
       </div>
     </nav>

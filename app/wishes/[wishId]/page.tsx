@@ -1,11 +1,11 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import SettingsForm from "../components/settings-form";
+import SingleWish from "../components/singleWish";
 import { Suspense } from "react";
-import Loading from "@/wishes/Loading";
+import Loading from "../Loading";
 
-const settingsPage = async ({ params }: { params: { wishId: string } }) => {
+const explorePage = async ({ params }: { params: { wishId: string } }) => {
   const { userId } = auth();
   if (!userId) {
     redirect("/");
@@ -13,19 +13,21 @@ const settingsPage = async ({ params }: { params: { wishId: string } }) => {
   const wish = await prismadb.wishes.findFirst({
     where: {
       wishId: params.wishId,
-      userId,
+      NOT: {
+        userId,
+      },
     },
   });
   if (!wish) {
-    redirect("/yourwishes");
+    redirect("/wishes");
   }
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <SettingsForm initialData={wish} />
+        <SingleWish initialData={wish} />
       </Suspense>
     </>
   );
 };
 
-export default settingsPage;
+export default explorePage;

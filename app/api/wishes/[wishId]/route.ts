@@ -29,7 +29,7 @@ export async function PATCH(
     const user_name = user?.username;
     const user_image = user?.imageUrl;
     const user_fullname = user?.firstName + " " + user?.lastName;
-    const wish = await prismadb.wishes.updateMany({
+    const wish = await prismadb.wishes.update({
       where: {
         wishId: params.wishId,
         userId,
@@ -62,7 +62,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const wish = await prismadb.wishes.deleteMany({
+    const wish = await prismadb.wishes.delete({
       where: {
         wishId: params.id,
         userId,
