@@ -118,7 +118,6 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
       setLoading(true);
       const res = await axios.delete(`/api/wishes/${params.wishId}`);
       router.refresh();
-      router.push("/yourwishes");
       console.log(res.data);
     } catch (error) {
       toast("Something went wrong", {

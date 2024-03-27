@@ -8,7 +8,6 @@ import Link from "next/link";
 
 const FetchWishes = async () => {
   const { userId } = auth();
-  //   const {isSignedIn , user} = useUser()
   if (!userId) {
     redirect("/sign-in");
   }
@@ -44,10 +43,10 @@ const FetchWishes = async () => {
   ];
   return (
     <div className="overall-wish-box flex flex-col gap-[2.15rem]">
-      {wishes.length <= 0 && (
+      {wishes.length <= 0 ? (
         <div className="w-full flex flex-col mt-20 items-center justify-center gap-3">
           <h2 className="text-white text-[1.7rem]">
-            You do not have any wish created at this time.
+            There are currently no wishes to explore now 
           </h2>
           <Link href={"/addwish"}>
             <Button variant={"primary"} className="text-[1.15rem] py-6 px-6">
@@ -55,28 +54,28 @@ const FetchWishes = async () => {
             </Button>
           </Link>
         </div>
-      )}
-      <section>
-        <div className="heading my-5 max-w-[75rem] mx-auto">
-          <h1 className="text-white text-[1.7rem] font-[800]">
-            Explore Wishes
-          </h1>
-          <div className="flex my-6 gap-4">
-            {wishCat.map((cat, index) => {
-              return (
-                <Link href={cat.wishendpoint}>
-                  <div
-                    key={index}
-                    className="pill px-5 text-[1rem] font-[500] py-2 capitalize rounded-[4px] bg-[#292939] text-white"
-                  >
-                    {cat.wishname}
-                  </div>
-                </Link>
-              );
-            })}
+      ) : (
+        <section>
+          <div className="heading my-5 max-w-[75rem] mx-auto">
+            <h1 className="text-white text-[1.7rem] font-[800]">
+              Explore Wishes
+            </h1>
+            <div className="flex my-6 gap-4">
+              {wishCat.map((cat, index) => {
+                return (
+                  <Link href={cat.wishendpoint}>
+                    <div
+                      key={index}
+                      className="pill px-5 text-[1rem] font-[500] py-2 capitalize rounded-[4px] bg-[#292939] text-white"
+                    >
+                      {cat.wishname}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
-        </div>
-  
+
           {wishes.map((wish) => (
             <div className="max-w-[75rem] mx-auto">
               <div className="wish-container my-10">
@@ -108,8 +107,8 @@ const FetchWishes = async () => {
               </div>
             </div>
           ))}
-
-      </section>
+        </section>
+      )}
     </div>
   );
 };

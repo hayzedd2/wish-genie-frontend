@@ -4,7 +4,7 @@ import { SignIn } from "@clerk/nextjs";
 export default function page() {
   return (
     <div>
-        <SignIn/>
+        <SignIn afterSignInUrl={'/wishes'}/>
     </div>
   );
 }

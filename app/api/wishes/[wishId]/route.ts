@@ -53,7 +53,7 @@ export async function PATCH(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { wishId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -61,11 +61,10 @@ export async function DELETE(
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
     const wish = await prismadb.wishes.delete({
       where: {
-        wishId: params.id,
-        userId,
+        wishId: params.wishId,
+        userId
       },
     });
     return NextResponse.json(wish);
