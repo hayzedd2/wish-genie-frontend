@@ -24,7 +24,7 @@ const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
         <div className="sub-heading mt-3 text-white">
           <h1 className="text-[1.7rem] font-[800]">{initialData.wish_name}</h1>
           <p className="text-[0.95rem] text-[#9E9EB8] mt-2 underline underline-offset-2">
-            by Xylogeist
+            by {initialData.user_name ? <span className="capitalize">{initialData.user_name}</span> : <span className="capitalize">{initialData.user_fullname}</span>}
           </p>
         </div>
         <div className="lower-text mt-3 text-white">
@@ -39,24 +39,19 @@ const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
           <h1 className="text-[1.4rem] mb-3 font-[600] underline underline-offset-4">
             Contact Information
           </h1>
-          <img src="https://xskwwskjrucroydckicn.supabase.co/storage/v1/object/sign/WishgenieBucket/IMG_4776.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXaXNoZ2VuaWVCdWNrZXQvSU1HXzQ3NzYuanBlZyIsImlhdCI6MTcxMTU0NDIyMSwiZXhwIjoxNzQzMDgwMjIxfQ.DwbZM9hns_0EnFKAiLzguZrIlxlJ8uBSvWOmiu9F75w&t=2024-03-27T12%3A57%3A01.508Z" alt="" />
+        
           <ul className="flex flex-col gap-3.5 mt-3">
             <li className="flex items-center email gap-3  font-[800] text-[1.05rem]">
               <FaRegUser className="text-[#9E9EB8] text-[1.2rem]"/>
-              <p>Xylogeist</p>
+              {initialData.user_name ? <span className="capitalize">{initialData.user_name}</span> : <span className="capitalize">{initialData.user_fullname}</span>}
             </li>
             <li>
               <a className="flex items-center email gap-3 font-[800] text-[1.05rem]" href="mailto:azeezalhameen1@gmail.com">
                 <CiMail className="text-[#9E9EB8] text-[1.2rem]" />
-                <p>Azeezalhameen1@email.com</p>
+                <p>{initialData.user_email}</p>
               </a>
             </li>
-            <li>
-              <a className="flex items-center email gap-3 font-[800] text-[1.05rem]">
-                <CiPhone className="text-[#9E9EB8] text-[1.2rem]"/>
-                <p>0908066552522</p>
-              </a>
-            </li>
+           
           </ul>
         </div>
       </div>

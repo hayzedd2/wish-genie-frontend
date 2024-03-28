@@ -24,6 +24,7 @@ export async function POST(req: Request) {
     const user_name = user.username;
     const user_image = user.imageUrl;
     const user_fullname = user.firstName + " " + user.lastName;
+    const user_email = user.emailAddresses[0].emailAddress
     const wish = await prismadb.wishes.create({
       data: {
         wish_name,
@@ -33,6 +34,7 @@ export async function POST(req: Request) {
         user_name,
         user_fullname,
         user_image,
+        user_email
       },
     });
     return NextResponse.json(wish);  

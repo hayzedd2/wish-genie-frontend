@@ -12,7 +12,7 @@ datasource db {
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Wishes {
   id               Int       @id @unique @default(autoincrement()) @db.SmallInt
-  wishId           String?   @default(uuid()) @unique
+  wishId           String?   @unique @default(uuid())
   created_at       DateTime  @default(now()) @db.Timestamptz(6)
   updated_at       DateTime? @updatedAt @db.Timestamptz(6)
   wish_name        String?
@@ -22,4 +22,5 @@ model Wishes {
   user_name        String?
   user_fullname    String?
   user_image       String?
+  user_email       String?
 }

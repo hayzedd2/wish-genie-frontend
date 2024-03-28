@@ -1,6 +1,8 @@
 import prismadb from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { auth, useUser } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export async function PATCH(
   req: Request,
@@ -8,11 +10,10 @@ export async function PATCH(
 ) {
   try {
     const { userId } = auth();
-    const user = auth().user;
     const body = await req.json();
     const { wish_name, wish_description, wish_category } = body;
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("unauthorized", { status: 401 });
     }
     if (!wish_name) {
       return new NextResponse("Name is required", { status: 400 });
@@ -23,12 +24,11 @@ export async function PATCH(
     if (!wish_category) {
       return new NextResponse("Category is required", { status: 400 });
     }
-    if (!params.wishId) {
-      return new NextResponse("Invalid Wish ID", { status: 400 });
-    }
-    const user_name = user?.username;
-    const user_image = user?.imageUrl;
-    const user_fullname = user?.firstName + " " + user?.lastName;
+    const user = userId ? await clerkClient.users.getUser(userId) : redirect('/sign-in');
+    const user_name = user.username;
+    const user_image = user.imageUrl;
+    const user_fullname = user.firstName + " " + user.lastName;
+    const user_email = user.emailAddresses[0].emailAddress
     const wish = await prismadb.wishes.update({
       where: {
         wishId: params.wishId,
@@ -44,7 +44,7 @@ export async function PATCH(
         user_image,
       },
     });
-    return NextResponse.json(wish);
+    return NextResponse.json(wish);  
   } catch (err) {
     console.log("[STORE_UPDATE]", err);
     return new NextResponse("internal error", { status: 500 });
