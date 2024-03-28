@@ -39,6 +39,7 @@ const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
           <h1 className="text-[1.4rem] mb-3 font-[600] underline underline-offset-4">
             Contact Information
           </h1>
+          <img src="https://xskwwskjrucroydckicn.supabase.co/storage/v1/object/sign/WishgenieBucket/IMG_4776.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXaXNoZ2VuaWVCdWNrZXQvSU1HXzQ3NzYuanBlZyIsImlhdCI6MTcxMTU0NDIyMSwiZXhwIjoxNzQzMDgwMjIxfQ.DwbZM9hns_0EnFKAiLzguZrIlxlJ8uBSvWOmiu9F75w&t=2024-03-27T12%3A57%3A01.508Z" alt="" />
           <ul className="flex flex-col gap-3.5 mt-3">
             <li className="flex items-center email gap-3  font-[800] text-[1.05rem]">
               <FaRegUser className="text-[#9E9EB8] text-[1.2rem]"/>

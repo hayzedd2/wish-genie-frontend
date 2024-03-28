@@ -1,20 +1,16 @@
 import prismadb from "@/lib/prismadb";
 import { auth, useUser } from "@clerk/nextjs";
-import { redirect } from "next/dist/server/api-utils";
 import { NextResponse } from "next/server";
-
+import { getAuth, clerkClient } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
-    const { user } = auth();
     const body = await req.json();
     const { wish_name, wish_description, wish_category } = body;
-    if (!userId ) {
+    if (!userId) {
       return new NextResponse("unauthorized", { status: 401 });
     }
-    // if(!user){
-    //   return new NextResponse("No signed in user", { status: 503 });
-    // }
     if (!wish_name) {
       return new NextResponse("Name is required", { status: 400 });
     }
@@ -24,9 +20,10 @@ export async function POST(req: Request) {
     if (!wish_category) {
       return new NextResponse("Category is required", { status: 400 });
     }
-    const user_name = user?.username
-    const user_image = user?.imageUrl
-    const user_fullname = user?.firstName  + ' '+ user?.lastName
+    const user = userId ? await clerkClient.users.getUser(userId) : redirect('/sign-in');
+    const user_name = user.username;
+    const user_image = user.imageUrl;
+    const user_fullname = user.firstName + " " + user.lastName;
     const wish = await prismadb.wishes.create({
       data: {
         wish_name,
@@ -38,7 +35,7 @@ export async function POST(req: Request) {
         user_image,
       },
     });
-    return NextResponse.json(wish);
+    return NextResponse.json(wish);  
   } catch (error) {
     console.log("[wishes_error]", error);
     return new NextResponse("internal error", { status: 500 });
