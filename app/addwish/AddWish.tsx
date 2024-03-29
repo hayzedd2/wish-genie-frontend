@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Form,
   FormControl,
@@ -11,10 +11,12 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { MdOutlineVideoLibrary } from "react-icons/md";
+import { createClient } from "@supabase/supabase-js";
+import { handleImageUpload } from "./fileInput";
 import * as z from "zod";
 import axios from "axios";
 import {
@@ -25,7 +27,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-
+import Image from "next/image";
 
 const wishCategories = [
   {
@@ -63,6 +65,7 @@ const formSchema = z.object({
 
 const AddWish = () => {
   const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState<File>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,6 +74,9 @@ const AddWish = () => {
       wish_category: "",
     },
   });
+  if(imageUrl != null){
+    // handleImageUpload(imageUrl)
+  }
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -173,17 +179,21 @@ const AddWish = () => {
               >
                 <MdOutlineVideoLibrary className="text-white text-[1.35rem]" />
                 <div className="text mt-3">
+                {imageUrl ? <Image src={URL.createObjectURL(imageUrl)} width={600} height={300} alt="uploaded image"></Image> : null}
                   <h2 className="text-white text-[1rem] font-[500]">
-                    Optional: Add a Video
+                    Optional: Upload an image
+                  
                   </h2>
                   <p className="text-[0.9rem] mt-[0.15rem] text-[#9E9EB8] font-[500]">
-                    Upload a video to tell your story. (Max 2 mins)
+                    Upload an image to better describe your wish.
                   </p>
                 </div>
                 <input
                   type="file"
+                  onChange={(e) => setImageUrl(e.target.files?.[0])}
                   disabled={loading}
                   name="file"
+                  accept="video/*, image/png, image/gif, image/jpeg"
                   id="file"
                   className="hidden"
                 />

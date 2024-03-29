@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 const FetchWishes = async () => {
   const { userId } = auth();
   if (!userId) {
@@ -81,7 +82,15 @@ const FetchWishes = async () => {
                   key={wish.id}
                 >
                   <div className="img-text-flex flex items-center gap-4 text-white">
-                    <div className="w-14 h-14 rounded-full bg-red-600"></div>
+                  {wish.user_image ? (
+                      <Image
+                        src={wish.user_image}
+                        width={55}
+                        height={55}
+                        className="rounded-full"
+                        alt="user_image"
+                      />
+                    ) : null}
                     <div>
                       <h3 className="font-[600] text-[1.15rem]">
                         {wish.wish_name}
