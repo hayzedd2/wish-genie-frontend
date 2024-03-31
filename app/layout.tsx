@@ -4,6 +4,7 @@ import Navbar from "./components/custom-comp/Navbar";
 import { Cardo } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { SignedIn } from "@clerk/nextjs";
+import MobileNav from "./components/custom-comp/MobileNav";
 const workSans = Cardo({
   subsets: ["latin"],
   weight: ["400", "700"], // Add desired weights
@@ -23,6 +24,7 @@ export default function RootLayout({
         <body className={`${workSans.className} min-h-screen bg-primarybg`}>
           <SignedIn>
             <Navbar />
+            <MobileNav/>
           </SignedIn>
 
           {children}

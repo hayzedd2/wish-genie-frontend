@@ -60,7 +60,7 @@ const FetchWishes = async () => {
       ) : (
         <section  className=" xl:px-0 sm:px-5">
           <div className="heading my-5 xl:max-w-[75rem] sm:max-w-none mx-auto">
-            <h1 className="text-white text-[1.7rem] font-[800]">Your Wishes</h1>
+            <h1 className="text-white xl:text-[1.7rem] sm:text-[1.3rem] font-[800]">Your Wishes</h1>
             <div className=" xl:my-6 sm:my-3 gap-3  w-full flex overflow-auto">
               {wishCat.map((cat, index) => {
                 return (
