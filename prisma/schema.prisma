@@ -23,4 +23,5 @@ model Wishes {
   user_fullname    String?
   user_image       String?
   user_email       String?
+  wish_image       String?
 }

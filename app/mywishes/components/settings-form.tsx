@@ -133,13 +133,13 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
   };
   return (
     <section className="pb-8 px-5">
-      <div className="container max-w-xl mx-auto">
+      <div className="xl:container xl:max-w-xl sm:max-w-none mx-auto">
         <div className="heading flex items-end justify-between">
           <div>
             <h1 className="pt-8 text-white text-[1.5rem] font-[600]">
               Manage your Wish
             </h1>
-            <p className="text-[1rem] mt-[0.15rem] mb-[0.25rem] text-[#9E9EB8] font-[500]">
+            <p className="text-[1rem] mt-[0.15rem] mb-[0.35rem] text-[#9E9EB8] font-[500]">
               Delete or edit your wish.
             </p>
           </div>
@@ -230,7 +230,7 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
                     defaultValue={field.value}
                   >
                     <FormControl className="bg-[#1C1C25]">
-                      <SelectTrigger className="w-[100%]">
+                      <SelectTrigger className="w-[100%] SelectTrigger">
                         <SelectValue placeholder="Choose a category that best suits your wish" />
                       </SelectTrigger>
                     </FormControl>

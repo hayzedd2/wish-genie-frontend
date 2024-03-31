@@ -19,6 +19,10 @@ const FetchWishes = async () => {
   
   const wishCat = [
     {
+      wishname: "All",
+      wishendpoint: "/all",
+    },
+    {
       wishname: "Tech",
       wishendpoint: "/random",
     },
@@ -31,7 +35,7 @@ const FetchWishes = async () => {
       wishendpoint: "/random",
     },
     {
-      wishname: "Health & Wellness",
+      wishname: "Health",
       wishendpoint: "/random",
     },
     {
@@ -54,10 +58,10 @@ const FetchWishes = async () => {
           </Link>
         </div>
       ) : (
-        <section>
-          <div className="heading my-5 max-w-[75rem] mx-auto">
+        <section  className=" xl:px-0 sm:px-5">
+          <div className="heading my-5 xl:max-w-[75rem] sm:max-w-none mx-auto">
             <h1 className="text-white text-[1.7rem] font-[800]">Your Wishes</h1>
-            <div className="flex my-6 gap-4">
+            <div className=" xl:my-6 sm:my-3 gap-3  w-full flex overflow-auto">
               {wishCat.map((cat, index) => {
                 return (
                   <Link href={cat.wishendpoint}>
