@@ -79,12 +79,12 @@ const FetchWishes = async () => {
           </div>
 
           {wishes.map((wish) => (
-            <div className="max-w-[75rem] mx-auto">
+            <div className="max-w-[75rem] mx-auto"  key={wish.id}>
               <div className="wish-container my-10">
                 <Link
                   href={`/mywishes/${wish.wishId}`}
                   className="wish-box flex items-center justify-between"
-                  key={wish.id}
+                 
                 >
                   <div className="img-text-flex flex items-center gap-4 text-white">
                     {wish.user_image ? (

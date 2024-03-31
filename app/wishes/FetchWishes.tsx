@@ -171,12 +171,12 @@ const FetchWishes = async ({ categorySlug }: any) => {
           </div>
 
           {wishes.map((wish) => (
-            <div className="max-w-[75rem] mx-auto">
+            <div className="max-w-[75rem] mx-auto" key={wish.id}>
               <div className="wish-container my-10">
                 <Link
                   href={`/wishes/${wish.wishId}`}
                   className="wish-box flex items-center xl:flex-nowrap sm:flex-wrap xl:justify-between sm:justify-end"
-                  key={wish.id}
+                  
                 >
                   <div className="img-text-flex flex items-center gap-4 text-white">
                     {wish.user_image ? (
