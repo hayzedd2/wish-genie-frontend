@@ -64,7 +64,7 @@ const FetchWishes = async () => {
             <div className=" xl:my-6 sm:my-3 gap-3  w-full flex overflow-auto">
               {wishCat.map((cat, index) => {
                 return (
-                  <Link href={cat.wishendpoint}>
+                  <Link href={cat.wishendpoint} key={cat.wishendpoint}>
                     <div
                       key={index}
                       className="pill px-5 text-[1rem] font-[500] py-2 capitalize rounded-[4px] bg-[#292939] text-white"
