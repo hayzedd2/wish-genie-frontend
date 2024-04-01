@@ -76,7 +76,6 @@ const AddWish = () => {
     },
   });
 
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
@@ -102,7 +101,9 @@ const AddWish = () => {
   return (
     <section className="pb-8 xl:px-5 sm:px-5">
       <div className="xl:container xl:max-w-xl sm:max-w-none mx-auto">
-        <h1 className="py-8 text-white text-[1.5rem] myman font-[600]">New Wish</h1>
+        <h1 className="py-8 text-white text-[1.5rem] myman font-[600]">
+          New Wish
+        </h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -154,7 +155,7 @@ const AddWish = () => {
                   >
                     <FormControl className="bg-[#1C1C25]">
                       <SelectTrigger className="w-[100%] SelectTrigger">
-                        <SelectValue  placeholder="Choose a category that best suits your wish" />
+                        <SelectValue placeholder="Choose a category that best suits your wish" />
                       </SelectTrigger>
                     </FormControl>
                     <FormMessage />
@@ -174,7 +175,17 @@ const AddWish = () => {
               )}
             />
 
-            <div className="text-[#9E9EB8] bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]">
+            <div
+              className="text-[#9E9EB8] bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]"
+              onClick={() =>
+                toast("This feature is coming soon", {
+                  action: {
+                    label: "Alrighty",
+                    onClick: () => console.log("OK"),
+                  },
+                })
+              }
+            >
               {/* <FormField
                 control={form.control}
                 name="wish_description"
@@ -203,22 +214,22 @@ const AddWish = () => {
               >
                 <MdOutlineVideoLibrary className="text-white text-[1.35rem]" />
                 <div className="text mt-3">
-                  {imageUrl ? (
+                  {/* {imageUrl ? (
                     <Image
                       src={URL.createObjectURL(imageUrl)}
                       width={600}
                       height={300}
                       alt="uploaded image"
                     ></Image>
-                  ) : null}
+                  ) : null} */}
                   <h2 className="text-white text-[1rem] font-[500]">
-                    Optional: Upload an image
+                    Optional: Upload a Video
                   </h2>
-                  <p className="text-[0.9rem] mt-[0.15rem] text-[#9E9EB8] font-[500]">
-                    Upload an image to better describe your wish.
+                  <p className="text-[0.95rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">
+                    Upload a video to tell your story. (Max 2 mins)
                   </p>
                 </div>
-                <input
+                {/* <input
                   type="file"
                   onChange={(e) => setImageUrl(e.target.files?.[0])}
                   disabled={loading}
@@ -226,7 +237,7 @@ const AddWish = () => {
                   accept="video/*, image/png, image/gif, image/jpeg"
                   id="file"
                   className="hidden"
-                />
+                /> */}
               </label>
             </div>
 

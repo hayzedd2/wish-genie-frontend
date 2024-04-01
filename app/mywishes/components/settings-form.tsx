@@ -139,7 +139,7 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
             <h1 className="pt-8 text-white text-[1.5rem] font-[600]">
               Manage your Wish
             </h1>
-            <p className="text-[1rem] mt-[0.15rem] mb-[0.35rem] text-[#9E9EB8] font-[500]">
+            <p className="text-[1rem] mt-[0.15rem] mb-[1rem] text-[#9E9EB8] font-[600]">
               Delete or edit your wish.
             </p>
           </div>
@@ -251,34 +251,76 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
               )}
             />
 
-            <div className="text-[#9E9EB8] bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]">
+<div
+              className="text-[#9E9EB8] bg-[#1C1C25] w-full cursor-pointer rounded-md outline-none border-2 border-[#3d3d54] px-5 py-5 text-[1.05rem]"
+              onClick={() =>
+                toast("This feature is coming soon", {
+                  action: {
+                    label: "Alrighty",
+                    onClick: () => console.log("OK"),
+                  },
+                })
+              }
+            >
+              {/* <FormField
+                control={form.control}
+                name="wish_description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        type="file"
+                        onChange={(e) => setImageUrl(e.target.files?.[0])}
+                        name="file"
+                        accept="video/*, image/png, image/gif, image/jpeg"
+                        id="file"
+                        className="hidden"
+                        placeholder="Say Something about this wish"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
               <label
                 htmlFor="file"
                 className="text-white text-[0.9rem] mt-3 cursor-pointer"
               >
                 <MdOutlineVideoLibrary className="text-white text-[1.35rem]" />
                 <div className="text mt-3">
+                  {/* {imageUrl ? (
+                    <Image
+                      src={URL.createObjectURL(imageUrl)}
+                      width={600}
+                      height={300}
+                      alt="uploaded image"
+                    ></Image>
+                  ) : null} */}
                   <h2 className="text-white text-[1rem] font-[500]">
-                    Optional: Add a Video
+                    Optional: Upload a Video <span className="text-[0.95rem]"> (Max 2 mins)</span>
                   </h2>
-                  <p className="text-[0.9rem] mt-[0.15rem] text-[#9E9EB8] font-[500]">
-                    Upload a video to tell your story. (Max 2 mins)
+                  <p className="text-[0.95rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">
+                    Upload a video to tell your story. 
                   </p>
                 </div>
-                <input
+                {/* <input
                   type="file"
+                  onChange={(e) => setImageUrl(e.target.files?.[0])}
                   disabled={loading}
                   name="file"
+                  accept="video/*, image/png, image/gif, image/jpeg"
                   id="file"
                   className="hidden"
-                />
+                /> */}
               </label>
             </div>
 
             <div className="flex items-end justify-end gap-3">
               <Button variant={"primary"} size={"lg"} disabled={loading}>
                 {loading ? (
-                  <div className="flex gap-1 items-center justify-center text-[1rem] font-[500]">
+                  <div className="flex gap-1 items-center justify-center text-[1rem] font-[600]">
                     <RotatingLines
                       visible={true}
                       width="24"
@@ -290,7 +332,7 @@ const SettingsForm: React.FC<formProps> = ({ initialData }) => {
                     <p>Saving changes</p>
                   </div>
                 ) : (
-                  <p className="text-[1rem] font-[500]">Save Changes</p>
+                  <p className="text-[1rem] font-[600]">Save Changes</p>
                 )}
               </Button>
             </div>

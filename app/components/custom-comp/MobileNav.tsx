@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import logo from "@/components/custom-comp/images/Union.svg";
 import { HiMenuAlt4 } from "react-icons/hi";
+import { UserButton } from "@clerk/nextjs";
 const MobileNav = () => {
   return (
     <nav className="px-5 xl:hidden sm:flex items-center justify-between">
@@ -11,8 +12,9 @@ const MobileNav = () => {
           WishGenie
         </h1>
       </div>
-      <div className="burger text-white text-[2rem] cursor-pointer">
+      <div className="burger text-white text-[2rem] cursor-pointer flex items-center gap-2">
         <HiMenuAlt4 />
+        <UserButton/>
       </div>
     </nav>
   );
