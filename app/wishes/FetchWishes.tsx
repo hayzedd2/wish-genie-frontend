@@ -169,14 +169,12 @@ const FetchWishes = async ({ categorySlug }: any) => {
               ))}
             </div>
           </div>
-
-          {wishes.map((wish) => (
-            <div className="max-w-[75rem] mx-auto" key={wish.id}>
-              <div className="wish-container my-10">
+          <div className="max-w-[75rem] mx-auto">
+            {wishes.map((wish) => (
+              <div className="wish-container my-10" key={wish.id}>
                 <Link
                   href={`/wishes/${wish.wishId}`}
                   className="wish-box flex items-center xl:flex-nowrap sm:flex-wrap xl:justify-between sm:justify-end"
-                  
                 >
                   <div className="img-text-flex flex items-center gap-4 text-white">
                     {wish.user_image ? (
@@ -207,8 +205,8 @@ const FetchWishes = async ({ categorySlug }: any) => {
                   </div>
                 </Link>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </section>
       )}
     </div>
