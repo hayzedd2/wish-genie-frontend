@@ -79,7 +79,7 @@ const FetchWishes = async () => {
           </div>
           <div className="max-w-[75rem] mx-auto">
             {wishes.map((wish) => (
-              <div className="wish-container my-10">
+              <div className="wish-container my-10" key={wish.id}>
                 <Link
                   href={`/mywishes/${wish.wishId}`}
                   className="wish-box flex items-center justify-between"
