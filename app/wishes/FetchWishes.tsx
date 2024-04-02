@@ -118,21 +118,16 @@ const FetchWishes = async ({ categorySlug }: any) => {
                   className="wish-box flex items-center xl:flex-nowrap sm:flex-wrap justify-between"
                 >
                   <div className="img-text-flex flex items-center gap-4 w-full text-white">
-                  {wish.user_image ? (
-                      <div style={{ position: 'relative', width: '60px', height: '60px' }}>
+                    {wish.user_image ? (
                       <Image
                         src={wish.user_image}
                         alt="User image"
-                        className="rounded-full"
-                        // sizes="200px"
-                        fill
-                        style={{
-                          objectFit: 'cover',
-                        }}
+                        width={60}
+                        height={60}
+                        className="rounded-full object-cover"
                       />
-                    </div>
                     ) : null}
-                    <div>
+                    <div className="">
                       <h3 className="font-[600] text-[1.15rem]">
                         {wish.wish_name}
                       </h3>
@@ -141,7 +136,7 @@ const FetchWishes = async ({ categorySlug }: any) => {
                       </p>
                     </div>
                   </div>
-                  <div className="sm:flex  items-end justify-end w-full">
+                  <div className="xl:flex sm:hidden">
                     <Button
                       size={"lg"}
                       className="text-[0.98rem] font-[600] bg-[#292939]"

@@ -24,10 +24,10 @@ export default function RootLayout({
         <body className={`${workSans.className} min-h-screen bg-primarybg`}>
           <SignedIn>
             <Navbar />
-            <MobileNav/>
+            <MobileNav />
           </SignedIn>
+          <div className="xl:px-4 sm:px-0">{children}</div>
 
-          {children}
           <Toaster />
         </body>
       </html>
