@@ -47,101 +47,9 @@ const FetchWishes = async ({ categorySlug }: any) => {
   ];
   return (
     <div className="overall-wish-box flex flex-col gap-[2.15rem]">
-      {/* {wishes.length <= 0 && categorySlug ? (
-        <>
-          {" "}
-          <div className="flex my-6 gap-4">
-            {wishCat.map((cat, index) => {
-              return (
-                <Link href={`wishes?category=${cat.wishendpoint}`}>
-                  <div
-                    key={index}
-                    className="pill px-5 text-[1rem] font-[500] py-2 capitalize rounded-[4px] bg-[#292939] text-white"
-                  >
-                    {cat.wishname}
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-          <div className="w-full flex flex-col mt-20 items-center justify-center gap-3">
-            <h2 className="text-white text-[1.7rem]">
-              There are currently no wishes under this category
-            </h2>
-            <Link href={"/addwish"}>
-              <Button variant={"primary"} className="text-[1.15rem] py-6 px-6">
-                Create new Wish
-              </Button>
-            </Link>
-          </div>{" "}
-        </>
-      ) : (
-        <section>
-          <div className="heading my-5 max-w-[75rem] mx-auto">
-            <h1 className="text-white text-[1.7rem] font-[800]">
-              Explore Wishes
-              {categorySlug}
-            </h1>
-            <div className="flex my-6 gap-4">
-              {wishCat.map((cat, index) => {
-                return (
-                  <Link href={`wishes?category=${cat.wishendpoint}`}>
-                    <div
-                      key={index}
-                      className="pill px-5 text-[1rem] font-[500] py-2 capitalize rounded-[4px] bg-[#292939] text-white"
-                    >
-                      {cat.wishname}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-
-          {wishes.map((wish) => (
-            <div className="max-w-[75rem] mx-auto">
-              <div className="wish-container my-10">
-                <Link
-                  href={`/wishes/${wish.wishId}`}
-                  className="wish-box flex items-center justify-between"
-                  key={wish.id}
-                >
-                  <div className="img-text-flex flex items-center gap-4 text-white">
-                    {wish.user_image ? (
-                      <Image
-                        src={wish.user_image}
-                        width={55}
-                        height={55}
-                        className="rounded-full"
-                        alt="user_image"
-                      />
-                    ) : null}
-                    <div>
-                      <h3 className="font-[600] text-[1.15rem]">
-                        {wish.wish_name}
-                      </h3>
-                      <p className="text-[1rem] mt-[0.15rem] text-[#9E9EB8] font-[600]">
-                        {wish.wish_description}
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <Button
-                      size={"lg"}
-                      className="text-[0.98rem] font-[600] bg-[#292939]"
-                    >
-                      Offer to help
-                    </Button>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          ))}
-        </section>
-      )} */}
       {wishes.length <= 0 && !categorySlug ? (
-        <div className="w-full flex flex-col mt-20 items-center justify-center gap-3">
-          <h2 className="text-white text-[1.7rem]">
+        <div className="w-full flex flex-col mt-20 items-center justify-center gap-3 text-center">
+          <h2 className="text-white xl:text-[1.7rem] sm:text-[1.5rem]">
             There are currently no wishes to explore now
           </h2>
           <Link href={"/addwish"}>
@@ -150,6 +58,39 @@ const FetchWishes = async ({ categorySlug }: any) => {
             </Button>
           </Link>
         </div>
+      ) : wishes.length <= 0 && categorySlug ? (
+        <section className=" xl:px-0 sm:px-5">
+          <div className="my-5 xl:max-w-[75rem] sm:max-w-none mx-auto">
+            <h1 className="text-white xl:text-[1.7rem] sm:text-[1.3rem] font-[800]">
+              Explore Wishes
+            </h1>
+            <div className=" xl:my-6 sm:my-3 gap-3  w-full flex overflow-auto">
+              {wishCat.map((cat) => (
+                <Link
+                  href={`wishes?category=${cat.wishendpoint}`}
+                  key={cat.wishendpoint}
+                >
+                  <div className="text-[1rem] font-[500] overflow-auto py-2 px-5 capitalize rounded-[4px] bg-[#292939] text-white">
+                    {cat.wishname}
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="w-full flex flex-col mt-20 items-center justify-center gap-3 text-center">
+              <h2 className="text-white [1.7rem] sm:text-[1.5rem]">
+                There are currently no wish under this category
+              </h2>
+              <Link href={"/addwish"}>
+                <Button
+                  variant={"primary"}
+                  className="text-[1.15rem] py-6 px-6"
+                >
+                  Create new Wish
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
       ) : (
         <section className=" xl:px-0 sm:px-5">
           <div className="heading my-5 xl:max-w-[75rem] sm:max-w-none mx-auto">
@@ -177,14 +118,19 @@ const FetchWishes = async ({ categorySlug }: any) => {
                   className="wish-box flex items-center xl:flex-nowrap sm:flex-wrap justify-between"
                 >
                   <div className="img-text-flex flex items-center gap-4 w-full text-white">
-                    {wish.user_image ? (
+                  {wish.user_image ? (
+                      <div style={{ position: 'relative', width: '60px', height: '60px' }}>
                       <Image
                         src={wish.user_image}
-                        width={50}
-                        height={50}
+                        alt="User image"
                         className="rounded-full"
-                        alt="user_image"
+                        // sizes="200px"
+                        fill
+                        style={{
+                          objectFit: 'cover',
+                        }}
                       />
+                    </div>
                     ) : null}
                     <div>
                       <h3 className="font-[600] text-[1.15rem]">

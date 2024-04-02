@@ -31,12 +31,10 @@ const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
         <div className="lower-text mt-3 text-white">
           <p className="text-[1.2rem]">{initialData.wish_description}</p>
         </div>
-        <div className="image-comp mt-3">
+        {/* <div className="image-comp mt-3">
           <Image src={japan} width={700} alt="image" height={100} />
-        </div>
-       
-        </div>
-        <div className="contact mt-10 text-white xl:basis-[20%] sm:basis-[100%] justify-end flex flex-col">
+        </div> */}
+       <div className="contact mt-10 text-white xl:basis-[20%] sm:basis-[100%] justify-end flex flex-col">
           <h1 className="text-[1.4rem] mb-3 font-[600] underline underline-offset-4">
             Contact Information
           </h1>
@@ -55,6 +53,8 @@ const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
            
           </ul>
         </div>
+        </div>
+        
       </div>
     </section>
   );
