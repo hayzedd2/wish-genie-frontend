@@ -13,9 +13,9 @@ import Link from "next/link";
 
 const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
   return (
-    <section className="mb-10">
-      <div className="max-w-[75rem] flex mx-auto">
-        <div className="about-wish basis-[80%]">
+    <section className="pb-8 px-5">
+      <div className="max-w-[75rem] flex mx-auto xl:flex-nowrap sm:flex-wrap">
+        <div className="about-wish xl:basis-[80%] sm:basis-[100%]">
             <div className="heading flex items-center gap-2 text-[1.15rem] mt-8 text-white capitalize">
           <h4><Link href={'/wishes'}>Wishes</Link></h4>
           <p>/</p>
@@ -25,6 +25,7 @@ const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
           <h1 className="text-[1.7rem] font-[800]">{initialData.wish_name}</h1>
           <p className="text-[0.95rem] text-[#9E9EB8] mt-2 underline underline-offset-2">
             by {initialData.user_name ? <span className="capitalize">{initialData.user_name}</span> : <span className="capitalize">{initialData.user_fullname}</span>}
+            
           </p>
         </div>
         <div className="lower-text mt-3 text-white">
@@ -35,7 +36,7 @@ const SingleWish: React.FC<singleWishProps> = async ({ initialData }) => {
         </div>
        
         </div>
-        <div className="contact mt-10 text-white basis-[20%] justify-end flex flex-col">
+        <div className="contact mt-10 text-white xl:basis-[20%] sm:basis-[100%] justify-end flex flex-col">
           <h1 className="text-[1.4rem] mb-3 font-[600] underline underline-offset-4">
             Contact Information
           </h1>

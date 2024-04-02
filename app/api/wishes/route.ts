@@ -21,6 +21,7 @@ export async function POST(req: Request) {
       return new NextResponse("Category is required", { status: 400 });
     }
     const user = userId ? await clerkClient.users.getUser(userId) : redirect('/sign-in');
+  
     const user_name = user.username;
     const user_image = user.imageUrl;
     const user_fullname = user.firstName + " " + user.lastName;

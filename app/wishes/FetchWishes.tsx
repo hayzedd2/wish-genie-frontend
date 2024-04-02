@@ -174,9 +174,9 @@ const FetchWishes = async ({ categorySlug }: any) => {
               <div className="wish-container my-10" key={wish.id}>
                 <Link
                   href={`/wishes/${wish.wishId}`}
-                  className="wish-box flex items-center xl:flex-nowrap sm:flex-wrap xl:justify-between sm:justify-end"
+                  className="wish-box flex items-center xl:flex-nowrap sm:flex-wrap justify-between"
                 >
-                  <div className="img-text-flex flex items-center gap-4 text-white">
+                  <div className="img-text-flex flex items-center gap-4 w-full text-white">
                     {wish.user_image ? (
                       <Image
                         src={wish.user_image}
@@ -195,7 +195,7 @@ const FetchWishes = async ({ categorySlug }: any) => {
                       </p>
                     </div>
                   </div>
-                  <div>
+                  <div className="sm:flex  items-end justify-end w-full">
                     <Button
                       size={"lg"}
                       className="text-[0.98rem] font-[600] bg-[#292939]"
