@@ -5,6 +5,7 @@ import prismadb from "@/lib/prismadb";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { clerkClient } from "@clerk/nextjs";
 const FetchWishes = async ({ categorySlug }: any) => {
   const { userId } = auth();
   if (!userId) {
@@ -17,6 +18,9 @@ const FetchWishes = async ({ categorySlug }: any) => {
     },
   });
 
+  const user = userId
+    ? await clerkClient.users.getUser(userId)
+    : redirect("/sign-in");
   const wishCat = [
     {
       wishname: "All",
@@ -113,23 +117,29 @@ const FetchWishes = async ({ categorySlug }: any) => {
             {wishes.map((wish) => (
               <div className="wish-container my-10" key={wish.id}>
                 <Link
-                  href={`/wishes/${wish.wishId}`}
+                  href={`/mywishes/${wish.wishId}`}
                   className="wish-box flex items-center xl:flex-nowrap sm:flex-wrap justify-between"
                 >
                   <div className="img-text-flex flex items-center gap-4 w-full text-white">
-                    {wish.user_image ? (
-                      <div style={{ position: 'relative', width: '60px', height: '60px' }}>
-                      <Image
-                        src={wish.user_image}
-                        alt="User image"
-                        className="rounded-full"
-                        // sizes="200px"
-                        fill
+                    {user ? (
+                      <div
                         style={{
-                          objectFit: 'cover',
+                          position: "relative",
+                          width: "60px",
+                          height: "60px",
                         }}
-                      />
-                    </div>
+                      >
+                        <Image
+                          src={user.imageUrl}
+                          alt="User image"
+                          className="rounded-full"
+                          // sizes="200px"
+                          fill
+                          style={{
+                            objectFit: "cover",
+                          }}
+                        />
+                      </div>
                     ) : null}
                     <div>
                       <h3 className="font-[600] text-[1.15rem]">
@@ -139,14 +149,6 @@ const FetchWishes = async ({ categorySlug }: any) => {
                         {wish.wish_description}
                       </p>
                     </div>
-                  </div>
-                  <div className="sm:flex  items-end justify-end w-full">
-                    <Button
-                      size={"lg"}
-                      className="text-[0.98rem] font-[600] bg-[#292939]"
-                    >
-                      Offer to help
-                    </Button>
                   </div>
                 </Link>
               </div>
